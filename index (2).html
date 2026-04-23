@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cabinet Dentaire Dr. Benali | Votre Sourire, Notre Priorité</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue: #0066CC;
+      --blue-dark: #0052A3;
+      --blue-light: #E8F2FF;
+      --teal: #0891B2;
+      --white: #FFFFFF;
+      --gray-50: #F8FAFC;
+      --gray-100: #F1F5F9;
+      --gray-200: #E2E8F0;
+      --gray-500: #64748B;
+      --gray-700: #334155;
+      --gray-900: #0F172A;
+      --green: #22C55E;
+      --wa-green: #25D366;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--gray-900); overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--gray-100); }
+    ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 10px; }
+
+    /* ── RTL SUPPORT ── */
+    [dir="rtl"] { font-family: 'DM Sans', 'Segoe UI', Tahoma, sans-serif; }
+    [dir="rtl"] .nav-links { flex-direction: row-reverse; }
+    [dir="rtl"] .sel-wrap::after { left: auto; right: 14px; }
+    [dir="rtl"] .hero-sub { margin-right: 0; margin-left: auto; }
+    [dir="rtl"] .trust-row { flex-direction: row-reverse; }
+    [dir="rtl"] .hero-btns { flex-direction: row-reverse; }
+    [dir="rtl"] .check-list li { flex-direction: row-reverse; }
+    [dir="rtl"] .rdv-hl-item { flex-direction: row-reverse; }
+    [dir="rtl"] .footer-brand p { max-width: 320px; }
+    [dir="rtl"] .footer-inner { direction: rtl; }
+    [dir="rtl"] .svc-link { flex-direction: row-reverse; }
+    [dir="rtl"] .about-grid { direction: rtl; }
+    [dir="rtl"] .rdv-grid { direction: rtl; }
+    [dir="rtl"] .fb-top { right: auto; left: -22px; }
+    [dir="rtl"] .fb-bot { left: auto; right: -22px; }
+    [dir="rtl"] .cert-badge { right: auto; left: -20px; }
+
+    /* ── LANG SWITCHER ── */
+    .lang-switcher {
+      display: flex; align-items: center; gap: 4px;
+      background: var(--gray-100); border-radius: 8px; padding: 3px;
+      flex-shrink: 0;
+    }
+    .lang-btn {
+      background: none; border: none; cursor: pointer;
+      font-size: .78rem; font-weight: 700; padding: 5px 10px;
+      border-radius: 6px; color: var(--gray-500);
+      font-family: 'DM Sans', sans-serif; transition: all .2s;
+      white-space: nowrap;
+    }
+    .lang-btn.active { background: #fff; color: var(--blue); box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+    .lang-btn:hover:not(.active) { color: var(--gray-700); }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(255,255,255,0.96); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--gray-200);
+      height: 72px; padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px;
+      transition: box-shadow .3s;
+    }
+    .navbar.scrolled { box-shadow: 0 4px 24px rgba(0,102,204,.1); }
+    .nav-brand { display: flex; align-items: center; gap: 10px; cursor: pointer; flex-shrink: 0; }
+    .nav-logo-img { height: 48px; width: auto; display: block; object-fit: contain; flex-shrink: 0; }
+    .nav-brand-text { display: flex; flex-direction: column; justify-content: center; }
+    .nav-brand-name { font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: var(--gray-900); line-height: 1.2; }
+    .nav-brand-sub { font-size: .67rem; color: var(--blue); font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; margin-top: 1px; }
+    .nav-center { display: flex; align-items: center; gap: 0; flex: 1; justify-content: center; }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { font-size: .9rem; font-weight: 500; color: var(--gray-700); cursor: pointer; transition: color .2s; white-space: nowrap; }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .nav-cta { background: var(--blue); color: #fff; padding: 10px 18px; border-radius: 8px; font-weight: 700; font-size: .85rem; border: none; cursor: pointer; font-family: 'DM Sans',sans-serif; transition: all .2s; white-space: nowrap; }
+    .nav-cta:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,102,204,.3); }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; flex-shrink: 0; }
+    @media(max-width:900px) {
+      .nav-center { display: none; }
+    }
+    @media(max-width:768px) {
+      .nav-center { display: none; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: #fff; padding: 20px 5%; border-bottom: 1px solid var(--gray-200); box-shadow: 0 8px 24px rgba(0,0,0,.08); gap: 16px; z-index: 999; }
+      .nav-links.open { display: flex; }
+      .nav-cta-desktop { display: none; }
+      .hamburger { display: block; }
+      .nav-right { gap: 6px; }
+      .lang-btn { padding: 4px 8px; font-size: .72rem; }
+    }
+
+    /* ── HERO ── */
+    .hero { min-height: 100vh; background: url('bg_home.jpg') center center / cover no-repeat; display: flex; align-items: center; padding: 120px 5% 80px; position: relative; overflow: hidden; }
+    .hero::before { content:''; position:absolute; inset:0; background: linear-gradient(155deg,rgba(235,245,255,.92) 0%,rgba(248,250,252,.88) 45%,rgba(224,242,254,.90) 100%); pointer-events:none; z-index:0; }
+    .hero > * { position: relative; z-index: 1; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+    .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; max-width: 1200px; margin: 0 auto; width: 100%; }
+    @media(max-width:900px) { .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 48px; } }
+    .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1px solid var(--gray-200); padding: 8px 16px; border-radius: 50px; font-size: .8rem; font-weight: 700; color: var(--blue); margin-bottom: 22px; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+    .pulse { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pls 2s infinite; flex-shrink: 0; }
+    @keyframes pls { 0%,100%{opacity:1}50%{opacity:.3} }
+    .hero-title { font-family: 'DM Serif Display',serif; font-size: clamp(2.4rem,5vw,3.8rem); line-height: 1.15; color: var(--gray-900); margin-bottom: 20px; }
+    .hero-title em { font-style: normal; color: var(--blue); }
+    .hero-sub { font-size: 1.05rem; color: var(--gray-500); line-height: 1.7; margin-bottom: 36px; max-width: 480px; }
+    @media(max-width:900px) { .hero-sub { margin: 0 auto 36px; } }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    @media(max-width:900px) { .hero-btns { justify-content: center; } }
+    .btn-primary { background: var(--blue); color: #fff; padding: 14px 28px; border-radius: 10px; font-weight: 700; font-size: .95rem; border: none; cursor: pointer; font-family: 'DM Sans',sans-serif; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 6px 24px rgba(0,102,204,.3); transition: all .25s; }
+    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 10px 32px rgba(0,102,204,.35); }
+    .btn-ghost { background: #fff; color: var(--gray-700); padding: 14px 28px; border-radius: 10px; font-weight: 700; font-size: .95rem; border: 2px solid var(--gray-200); cursor: pointer; font-family: 'DM Sans',sans-serif; display: inline-flex; align-items: center; gap: 8px; transition: all .25s; }
+    .btn-ghost:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
+    .trust-row { display: flex; gap: 24px; margin-top: 36px; flex-wrap: wrap; }
+    @media(max-width:900px) { .trust-row { justify-content: center; } }
+    .trust-item { display: flex; align-items: center; gap: 8px; }
+    .trust-ico { width: 32px; height: 32px; background: var(--blue-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: .9rem; }
+    .trust-lbl { font-size: .82rem; font-weight: 600; color: var(--gray-700); }
+
+    /* Hero visual */
+    .hero-visual { position: relative; }
+    @media(max-width:900px) { .hero-visual { max-width: 420px; margin: 0 auto; } }
+    .hero-card { background: #fff; border-radius: 24px; padding: 40px; box-shadow: 0 24px 80px rgba(0,102,204,.12),0 8px 32px rgba(0,0,0,.06); text-align: center; position: relative; z-index: 2; overflow: hidden; }
+    .hero-emoji { font-size: 5rem; display: block; margin-bottom: 14px; filter: drop-shadow(0 8px 24px rgba(0,102,204,.2)); }
+    .hero-card-title { font-family: 'DM Serif Display',serif; font-size: 1.4rem; color: var(--gray-900); margin-bottom: 6px; }
+    .hero-card-sub { color: var(--gray-500); font-size: .88rem; }
+    .stars { color: #F59E0B; font-size: 1rem; letter-spacing: 2px; margin-top: 18px; display: block; }
+    .rating-note { font-size: .8rem; color: var(--gray-500); margin-top: 4px; }
+    .float-badge { position: absolute; background: #fff; border-radius: 14px; padding: 12px 16px; box-shadow: 0 8px 32px rgba(0,0,0,.1); display: flex; align-items: center; gap: 10px; z-index: 3; }
+    .fb-top { top: -22px; right: -22px; animation: floaty 4s ease-in-out infinite; }
+    .fb-bot { bottom: -22px; left: -22px; animation: floaty 4s ease-in-out 2s infinite; }
+    @keyframes floaty { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    @media(max-width:480px) { .fb-top,.fb-bot { display: none; } }
+    .fb-ico { font-size: 1.4rem; }
+    .fb-name { font-size: .8rem; font-weight: 700; color: var(--gray-900); }
+    .fb-info { font-size: .7rem; color: var(--gray-500); }
+
+    /* ── SECTION BASE ── */
+    .section { padding: 96px 5%; }
+    .section-alt { background: var(--gray-50); }
+    .section-header { text-align: center; margin-bottom: 60px; }
+    .eyebrow { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; }
+    .sec-title { font-family: 'DM Serif Display',serif; font-size: clamp(1.8rem,4vw,2.8rem); color: var(--gray-900); line-height: 1.25; }
+    .sec-title em { font-style: normal; color: var(--blue); }
+    .sec-sub { color: var(--gray-500); font-size: 1rem; margin-top: 14px; max-width: 560px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+    .divider-line { width: 48px; height: 3px; background: linear-gradient(90deg,var(--blue),var(--teal)); border-radius: 2px; margin: 20px auto 0; }
+
+    /* ── SERVICES ── */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(310px,1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
+    .svc-card { background: #fff; border-radius: 18px; overflow: hidden; border: 1px solid var(--gray-200); transition: all .3s; position: relative; }
+    .svc-card::before { content:''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,var(--blue),var(--teal)); transform: scaleX(0); transition: transform .3s; transform-origin: left; z-index: 1; }
+    .svc-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,102,204,.1); border-color: transparent; }
+    .svc-card:hover::before { transform: scaleX(1); }
+    .svc-img { width: 100%; height: 180px; object-fit: cover; display: block; transition: transform .4s; }
+    .svc-card:hover .svc-img { transform: scale(1.04); }
+    .svc-body { padding: 24px; }
+    .svc-icon { width: 52px; height: 52px; border-radius: 14px; background: var(--blue-light); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 1.4rem; transition: background .3s; }
+    .svc-card:hover .svc-icon { background: var(--blue); }
+    .svc-name { font-size: 1.1rem; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; }
+    .svc-desc { color: var(--gray-500); font-size: .88rem; line-height: 1.65; }
+    .svc-link { display: inline-flex; align-items: center; gap: 6px; color: var(--blue); font-size: .85rem; font-weight: 600; margin-top: 16px; cursor: pointer; transition: gap .2s; background: none; border: none; font-family: 'DM Sans',sans-serif; padding: 0; }
+    .svc-link:hover { gap: 10px; }
+
+    /* ── ABOUT ── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1100px; margin: 0 auto; }
+    @media(max-width:900px) { .about-grid { grid-template-columns: 1fr; gap: 48px; } }
+    .about-visual { position: relative; }
+    .about-card { background: linear-gradient(135deg,var(--blue),var(--teal)); border-radius: 24px; padding: 40px 40px 48px; color: #fff; text-align: center; overflow: hidden; }
+    .about-doc-img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 4px solid rgba(255,255,255,.35); margin-bottom: 18px; box-shadow: 0 8px 32px rgba(0,0,0,.2); }
+    .about-avatar { font-size: 5rem; margin-bottom: 18px; }
+    .about-doc-name { font-family: 'DM Serif Display',serif; font-size: 1.6rem; margin-bottom: 6px; }
+    .about-doc-title { font-size: .82rem; opacity: .8; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 28px; }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .a-stat { background: rgba(255,255,255,.15); border-radius: 12px; padding: 16px; }
+    .a-stat-num { font-family: 'DM Serif Display',serif; font-size: 1.8rem; }
+    .a-stat-lbl { font-size: .72rem; opacity: .8; margin-top: 2px; }
+    .cert-badge { position: absolute; bottom: -20px; right: -20px; background: #fff; border-radius: 14px; padding: 12px 16px; box-shadow: 0 8px 32px rgba(0,0,0,.1); display: flex; align-items: center; gap: 10px; }
+    @media(max-width:480px) { .cert-badge { display: none; } }
+    .about-content h2 { font-family: 'DM Serif Display',serif; font-size: clamp(1.8rem,3.5vw,2.5rem); color: var(--gray-900); line-height: 1.25; margin-bottom: 20px; }
+    .about-content h2 em { font-style: normal; color: var(--blue); }
+    .about-content p { color: var(--gray-500); font-size: .98rem; line-height: 1.75; margin-bottom: 14px; }
+    .check-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+    .check-list li { display: flex; align-items: flex-start; gap: 12px; color: var(--gray-700); font-size: .95rem; }
+    .chk { width: 22px; height: 22px; background: #DCFCE7; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: .75rem; margin-top: 1px; }
+
+    /* ── RDV ── */
+    .rdv-section { background: linear-gradient(160deg,#EBF5FF 0%,#F0F9FF 100%); }
+    .rdv-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 64px; align-items: start; max-width: 1100px; margin: 0 auto; }
+    @media(max-width:900px) { .rdv-grid { grid-template-columns: 1fr; } }
+    .rdv-info h2 { font-family: 'DM Serif Display',serif; font-size: clamp(1.8rem,3.5vw,2.5rem); color: var(--gray-900); line-height: 1.25; margin: 10px 0 16px; }
+    .rdv-info h2 em { font-style: normal; color: var(--blue); }
+    .rdv-info p { color: var(--gray-500); font-size: .98rem; line-height: 1.7; margin-bottom: 28px; }
+    .rdv-hl { display: flex; flex-direction: column; gap: 14px; }
+    .rdv-hl-item { display: flex; align-items: center; gap: 14px; }
+    .hl-dot { width: 10px; height: 10px; background: var(--blue); border-radius: 50%; flex-shrink: 0; }
+    .hl-text { color: var(--gray-700); font-size: .9rem; font-weight: 500; }
+    .form-box { background: #fff; border-radius: 24px; padding: 40px; box-shadow: 0 16px 60px rgba(0,102,204,.08),0 4px 16px rgba(0,0,0,.04); }
+    .form-box-title { font-family: 'DM Serif Display',serif; font-size: 1.4rem; color: var(--gray-900); margin-bottom: 6px; }
+    .form-box-sub { color: var(--gray-500); font-size: .85rem; margin-bottom: 28px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media(max-width:500px) { .form-row { grid-template-columns: 1fr; } }
+    .fg { margin-bottom: 18px; }
+    .fg label { display: block; font-size: .83rem; font-weight: 700; color: var(--gray-700); margin-bottom: 7px; }
+    .fg input, .fg select, .fg textarea { width: 100%; padding: 12px 16px; border-radius: 10px; border: 1.5px solid var(--gray-200); font-size: .95rem; font-family: 'DM Sans', sans-serif; color: var(--gray-900); background: var(--gray-50); transition: all .2s; outline: none; appearance: none; -webkit-appearance: none; }
+    .fg textarea { resize: vertical; min-height: 90px; }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--blue); background: #fff; box-shadow: 0 0 0 3px rgba(0,102,204,.08); }
+    .sel-wrap { position: relative; }
+    .sel-wrap::after { content: '▾'; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--gray-500); pointer-events: none; font-size: .9rem; }
+    .submit-btn { width: 100%; padding: 15px; background: var(--blue); color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 1rem; cursor: pointer; font-family: 'DM Sans',sans-serif; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 6px 24px rgba(0,102,204,.3); transition: all .25s; margin-top: 8px; }
+    .submit-btn:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 10px 32px rgba(0,102,204,.35); }
+    .wa-note { text-align: center; font-size: .78rem; color: var(--gray-500); margin-top: 14px; }
+
+    /* ── SUCCESS OVERLAY ── */
+    .success-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,.55); z-index: 9998; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(4px); }
+    .success-overlay.show { display: flex; }
+    .success-box { background: #fff; border-radius: 24px; padding: 48px 40px; text-align: center; max-width: 440px; width: 100%; box-shadow: 0 32px 80px rgba(0,0,0,.2); animation: popIn .4s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes popIn { from{opacity:0;transform:scale(.8)} to{opacity:1;transform:scale(1)} }
+    .success-icon { font-size: 4rem; display: block; margin-bottom: 16px; }
+    .success-title { font-family: 'DM Serif Display',serif; font-size: 1.8rem; color: var(--gray-900); margin-bottom: 10px; }
+    .success-msg { color: var(--gray-500); font-size: .98rem; line-height: 1.7; margin-bottom: 28px; }
+    .success-close { background: var(--blue); color: #fff; border: none; border-radius: 10px; padding: 13px 32px; font-weight: 700; font-size: 1rem; cursor: pointer; font-family: 'DM Sans',sans-serif; transition: all .2s; }
+    .success-close:hover { background: var(--blue-dark); transform: translateY(-1px); }
+
+    /* ── MODAL OVERLAY RDV ── */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15,23,42,.55); z-index: 9990; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(4px); overflow-y: auto; }
+    .modal-overlay.show { display: flex; }
+    .modal-box { background: #fff; border-radius: 24px; padding: 40px; max-width: 560px; width: 100%; box-shadow: 0 32px 80px rgba(0,0,0,.2); animation: popIn .35s cubic-bezier(.34,1.56,.64,1); position: relative; max-height: 90vh; overflow-y: auto; }
+    .modal-close { position: absolute; top: 16px; right: 16px; background: var(--gray-100); border: none; border-radius: 8px; width: 36px; height: 36px; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: background .2s; }
+    .modal-close:hover { background: var(--gray-200); }
+
+    /* ── CONTACT ── */
+    .contact-cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap: 22px; max-width: 1100px; margin: 0 auto 48px; }
+    .ccard { background: #fff; border-radius: 18px; padding: 30px; border: 1px solid var(--gray-200); transition: all .3s; }
+    .ccard:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,102,204,.08); border-color: var(--blue); }
+    .ccard-ico { font-size: 2rem; margin-bottom: 14px; }
+    .ccard h3 { font-size: 1rem; font-weight: 700; color: var(--gray-900); margin-bottom: 8px; }
+    .ccard p { color: var(--gray-500); font-size: .88rem; line-height: 1.6; }
+    .ccard a { color: var(--blue); text-decoration: none; font-weight: 600; }
+    .ccard a:hover { text-decoration: underline; }
+    .hours-tbl { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+    .hr-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 10px; background: var(--gray-50); border-radius: 7px; }
+    .hr-day { font-size: .78rem; font-weight: 600; color: var(--gray-700); }
+    .hr-time { font-size: .78rem; color: var(--blue); font-weight: 600; }
+    .map-box { max-width: 1100px; margin: 0 auto; background: linear-gradient(135deg,#EBF5FF,#F0F9FF); border-radius: 20px; height: 260px; display: flex; align-items: center; justify-content: center; border: 2px dashed var(--gray-200); }
+    .map-inner { text-align: center; }
+    .map-pin { font-size: 3rem; display: block; animation: pinbounce 2.5s ease-in-out infinite; }
+    @keyframes pinbounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+    .map-name { margin-top: 10px; font-weight: 700; color: var(--gray-900); font-size: 1rem; }
+    .map-addr { color: var(--gray-500); font-size: .85rem; margin-top: 4px; }
+    .map-link { display: inline-block; margin-top: 14px; background: var(--blue); color: #fff; padding: 10px 24px; border-radius: 8px; font-size: .85rem; font-weight: 600; text-decoration: none; transition: all .2s; }
+    .map-link:hover { background: var(--blue-dark); transform: translateY(-2px); }
+
+    /* ── WHATSAPP FLOAT ── */
+    .wa-float { position: fixed; bottom: 88px; right: 28px; z-index: 998; background: var(--wa-green); color: #fff; width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 28px rgba(37,211,102,.4); text-decoration: none; font-size: 1.7rem; transition: all .2s; }
+    .wa-float:hover { transform: scale(1.1) translateY(-2px); box-shadow: 0 12px 36px rgba(37,211,102,.5); }
+    .wa-float-tip { position: absolute; right: 68px; background: var(--gray-900); color: #fff; font-size: .78rem; font-weight: 600; white-space: nowrap; padding: 6px 12px; border-radius: 8px; opacity: 0; pointer-events: none; transition: opacity .2s; }
+    .wa-float:hover .wa-float-tip { opacity: 1; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--gray-900); padding: 60px 5% 32px; }
+    .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; max-width: 1100px; margin: 0 auto 48px; }
+    @media(max-width:768px) { .footer-inner { grid-template-columns: 1fr; gap: 32px; } }
+    .footer-brand h3 { font-family: 'DM Serif Display',serif; font-size: 1.3rem; color: #fff; margin-bottom: 10px; }
+    .footer-brand p { color: #64748B; font-size: .88rem; line-height: 1.7; max-width: 320px; margin-bottom: 20px; }
+    .footer-wa { display: inline-flex; align-items: center; gap: 8px; background: var(--wa-green); color: #fff; padding: 10px 20px; border-radius: 8px; font-size: .85rem; font-weight: 600; text-decoration: none; transition: all .2s; }
+    .footer-wa:hover { background: #1da851; transform: translateY(-2px); }
+    .footer-col h4 { font-size: .75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #94A3B8; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col li a { color: #64748B; font-size: .88rem; cursor: pointer; transition: color .2s; }
+    .footer-col li a:hover { color: #fff; }
+    .footer-hr { border: none; border-top: 1px solid #1E293B; max-width: 1100px; margin: 0 auto 24px; }
+    .footer-bottom { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { color: #475569; font-size: .78rem; }
+    .footer-pill { background: rgba(0,102,204,.15); color: #60A5FA; padding: 4px 12px; border-radius: 50px; font-size: .72rem; font-weight: 600; }
+
+    /* ── TOAST ── */
+    #toast { position: fixed; bottom: 32px; right: 32px; background: var(--gray-900); color: #fff; padding: 14px 22px; border-radius: 12px; font-size: .88rem; font-weight: 500; box-shadow: 0 12px 40px rgba(0,0,0,.25); z-index: 9999; display: none; align-items: center; gap: 10px; animation: slideInT .3s ease; }
+    @keyframes slideInT { from{opacity:0;transform:translateX(40px)} to{opacity:1;transform:translateX(0)} }
+
+    /* ── SCROLL TOP ── */
+    #scrollTopBtn { position: fixed; bottom: 32px; left: 32px; z-index: 999; width: 46px; height: 46px; background: var(--blue); color: #fff; border-radius: 10px; border: none; cursor: pointer; display: none; align-items: center; justify-content: center; font-size: 1rem; box-shadow: 0 6px 20px rgba(0,102,204,.35); transition: all .2s; }
+    #scrollTopBtn.show { display: flex; }
+    #scrollTopBtn:hover { background: var(--blue-dark); transform: translateY(-2px); }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .d1{transition-delay:.1s} .d2{transition-delay:.2s} .d3{transition-delay:.3s} .d4{transition-delay:.4s} .d5{transition-delay:.5s}
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-brand" onclick="goto('accueil')">
+    <div class="nav-brand-text">
+      <div class="nav-brand-name">Cabinet Dentaire Benali</div>
+      <div class="nav-brand-sub" data-fr="Dr. Sarah Benali" data-ar="د. سارة بنعلي">Dr. Sarah Benali</div>
+    </div>
+  </div>
+
+  <!-- desktop nav links -->
+  <div class="nav-center">
+    <ul class="nav-links" id="navLinksDesktop">
+      <li><a onclick="goto('accueil')" data-fr="Accueil" data-ar="الرئيسية">Accueil</a></li>
+      <li><a onclick="goto('services')" data-fr="Services" data-ar="الخدمات">Services</a></li>
+      <li><a onclick="goto('about')" data-fr="À Propos" data-ar="من نحن">À Propos</a></li>
+      <li><a onclick="goto('contact')" data-fr="Contact" data-ar="اتصل بنا">Contact</a></li>
+    </ul>
+  </div>
+
+  <div class="nav-right">
+    <!-- Language Switcher -->
+    <div class="lang-switcher">
+      <button class="lang-btn active" id="btnFr" onclick="setLang('fr')">FR</button>
+      <button class="lang-btn" id="btnAr" onclick="setLang('ar')">AR</button>
+    </div>
+    <button class="nav-cta nav-cta-desktop" onclick="openRDVModal()" data-fr="📅 Prendre RDV" data-ar="📅 حجز موعد">📅 Prendre RDV</button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <svg width="26" height="26" fill="none" stroke="#334155" stroke-width="2.5" viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Nav Menu -->
+<ul class="nav-links" id="navLinks" style="position:fixed;top:72px;z-index:999;background:#fff;padding:20px 5%;border-bottom:1px solid var(--gray-200);box-shadow:0 8px 24px rgba(0,0,0,.08);flex-direction:column;gap:16px;display:none;">
+  <li><a onclick="goto('accueil');closeMenu()" data-fr="Accueil" data-ar="الرئيسية">Accueil</a></li>
+  <li><a onclick="goto('services');closeMenu()" data-fr="Services" data-ar="الخدمات">Services</a></li>
+  <li><a onclick="goto('about');closeMenu()" data-fr="À Propos" data-ar="من نحن">À Propos</a></li>
+  <li><a onclick="goto('contact');closeMenu()" data-fr="Contact" data-ar="اتصل بنا">Contact</a></li>
+  <li><button class="nav-cta" style="width:100%" onclick="openRDVModal();closeMenu()" data-fr="📅 Prendre RDV" data-ar="📅 حجز موعد">📅 Prendre RDV</button></li>
+</ul>
+
+<!-- ═══ HERO ═══ -->
+<section id="accueil" class="hero">
+  <div class="hero-inner" style="position:relative;z-index:1">
+    <div>
+      <div class="hero-tag"><div class="pulse"></div> <span data-fr="Cabinet ouvert · Lun – Sam" data-ar="العيادة مفتوحة · الإث – السبت">Cabinet ouvert · Lun – Sam</span></div>
+      <h1 class="hero-title" data-fr="Votre <em>Sourire</em>,<br/>Notre Passion<br/>au Quotidien." data-ar="ابتسامتك <em>أولويتنا</em>,<br/>كل يوم<br/>بكل شغف.">Votre <em>Sourire</em>,<br/>Notre Passion<br/>au Quotidien.</h1>
+      <p class="hero-sub" data-fr="Des soins dentaires de qualité supérieure dans un environnement calme et rassurant. Votre confort est notre priorité absolue." data-ar="رعاية أسنان بجودة عالية في بيئة هادئة ومريحة. راحتك هي أولويتنا المطلقة.">Des soins dentaires de qualité supérieure dans un environnement calme et rassurant. Votre confort est notre priorité absolue.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="openRDVModal()" data-fr="📅 Prendre Rendez-vous" data-ar="📅 احجز موعدك">📅 Prendre Rendez-vous</button>
+        <button class="btn-ghost" onclick="goto('services')" data-fr="Nos Services →" data-ar="خدماتنا →">Nos Services →</button>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item"><div class="trust-ico">⭐</div><span class="trust-lbl" data-fr="500+ patients satisfaits" data-ar="+500 مريض راضٍ">500+ patients satisfaits</span></div>
+        <div class="trust-item"><div class="trust-ico">🛡️</div><span class="trust-lbl" data-fr="Équipements stérilisés" data-ar="معدات معقمة">Équipements stérilisés</span></div>
+        <div class="trust-item"><div class="trust-ico">💉</div><span class="trust-lbl" data-fr="Anesthésie douce" data-ar="تخدير لطيف">Anesthésie douce</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div style="position:relative">
+        <div class="hero-card">
+          <img src="logo_tooth.png" alt="Cabinet Dentaire Benali" style="width:130px;height:auto;object-fit:contain;display:block;margin:0 auto 22px;filter:drop-shadow(0 6px 20px rgba(0,102,204,.2));">
+          <div class="hero-card-title" data-fr="Cabinet Dentaire Benali" data-ar="عيادة بنعلي لطب الأسنان">Cabinet Dentaire Benali</div>
+          <div class="hero-card-sub" data-fr="12 ans d'expérience · Casablanca" data-ar="12 سنة خبرة · الدار البيضاء">12 ans d'expérience · Casablanca</div>
+          <span class="stars">★★★★★</span>
+          <div class="rating-note" data-fr="4.9/5 — 320 avis patients" data-ar="4.9/5 — 320 تقييم مريض">4.9/5 — 320 avis patients</div>
+        </div>
+        <div class="float-badge fb-top">
+          <span class="fb-ico">✅</span>
+          <div>
+            <div class="fb-name" data-fr="RDV confirmé" data-ar="موعد مؤكد">RDV confirmé</div>
+            <div class="fb-info" data-fr="En 5 min via WhatsApp" data-ar="في 5 دقائق عبر واتساب">En 5 min via WhatsApp</div>
+          </div>
+        </div>
+        <div class="float-badge fb-bot">
+          <span class="fb-ico">💉</span>
+          <div>
+            <div class="fb-name" data-fr="Sans douleur" data-ar="بدون ألم">Sans douleur</div>
+            <div class="fb-info" data-fr="Techniques modernes" data-ar="تقنيات حديثة">Techniques modernes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SERVICES ═══ -->
+<section id="services" class="section section-alt">
+  <div class="section-header reveal">
+    <span class="eyebrow" data-fr="Nos Soins" data-ar="خدماتنا">Nos Soins</span>
+    <h2 class="sec-title" data-fr="Des Services <em>Complets</em>" data-ar="خدمات <em>شاملة</em>">Des Services <em>Complets</em></h2>
+    <p class="sec-sub" data-fr="Nous couvrons l'ensemble des soins dentaires avec des techniques de pointe pour chaque patient." data-ar="نغطي جميع علاجات الأسنان بأحدث التقنيات لكل مريض.">Nous couvrons l'ensemble des soins dentaires avec des techniques de pointe pour chaque patient.</p>
+    <div class="divider-line"></div>
+  </div>
+  <div class="services-grid">
+    <!-- Implantologie -->
+    <div class="svc-card reveal d1">
+      <img src="implantologie.jpg" alt="Implantologie" class="svc-img" onerror="this.style.display='none'">
+      <div class="svc-body">
+        <div class="svc-icon">🦷</div>
+        <div class="svc-name" data-fr="Implantologie" data-ar="زراعة الأسنان">Implantologie</div>
+        <div class="svc-desc" data-fr="Remplacez vos dents manquantes par des implants naturels et durables, posés avec une précision chirurgicale absolue." data-ar="استبدل أسنانك المفقودة بزرعات طبيعية ودائمة بدقة جراحية عالية.">Remplacez vos dents manquantes par des implants naturels et durables, posés avec une précision chirurgicale absolue.</div>
+        <button class="svc-link" onclick="openRDVModal()" data-fr="Prendre RDV →" data-ar="احجز موعد →">Prendre RDV →</button>
+      </div>
+    </div>
+    <!-- Orthodontie -->
+    <div class="svc-card reveal d2">
+      <img src="orthodontie.jpg" alt="Orthodontie" class="svc-img" onerror="this.style.display='none'">
+      <div class="svc-body">
+        <div class="svc-icon">😁</div>
+        <div class="svc-name" data-fr="Orthodontie" data-ar="تقويم الأسنان">Orthodontie</div>
+        <div class="svc-desc" data-fr="Bagues traditionnelles ou aligneurs invisibles pour un sourire parfaitement aligné. Suivi personnalisé à chaque étape." data-ar="تقويم تقليدي أو شفاف لابتسامة مثالية. متابعة شخصية في كل خطوة.">Bagues traditionnelles ou aligneurs invisibles pour un sourire parfaitement aligné. Suivi personnalisé à chaque étape.</div>
+        <button class="svc-link" onclick="openRDVModal()" data-fr="Prendre RDV →" data-ar="احجز موعد →">Prendre RDV →</button>
+      </div>
+    </div>
+    <!-- Blanchiment -->
+    <div class="svc-card reveal d3">
+      <img src="blanchiment.jpg" alt="Blanchiment" class="svc-img" onerror="this.style.display='none'">
+      <div class="svc-body">
+        <div class="svc-icon">✨</div>
+        <div class="svc-name" data-fr="Blanchiment Dentaire" data-ar="تبييض الأسنان">Blanchiment Dentaire</div>
+        <div class="svc-desc" data-fr="Retrouvez un sourire éclatant et naturel grâce à nos techniques de blanchiment professionnel sans agresser l'émail." data-ar="استعد ابتسامة مشرقة وطبيعية بتقنيات تبييض احترافية دون الإضرار بالمينا.">Retrouvez un sourire éclatant et naturel grâce à nos techniques de blanchiment professionnel sans agresser l'émail.</div>
+        <button class="svc-link" onclick="openRDVModal()" data-fr="Prendre RDV →" data-ar="احجز موعد →">Prendre RDV →</button>
+      </div>
+    </div>
+    <!-- Extraction -->
+    <div class="svc-card reveal d1">
+      <img src="extraction.jpg" alt="Extraction" class="svc-img" onerror="this.style.display='none'">
+      <div class="svc-body">
+        <div class="svc-icon">🔬</div>
+        <div class="svc-name" data-fr="Extraction Dentaire" data-ar="قلع الأسنان">Extraction Dentaire</div>
+        <div class="svc-desc" data-fr="Extractions simples et chirurgicales réalisées sous anesthésie locale optimale, pour une intervention sans stress." data-ar="قلع بسيط وجراحي تحت تخدير موضعي مثالي لتدخل بلا توتر.">Extractions simples et chirurgicales réalisées sous anesthésie locale optimale, pour une intervention sans stress.</div>
+        <button class="svc-link" onclick="openRDVModal()" data-fr="Prendre RDV →" data-ar="احجز موعد →">Prendre RDV →</button>
+      </div>
+    </div>
+    <!-- Soins -->
+    <div class="svc-card reveal d2">
+      <img src="soins.jpg" alt="Soins de Carie" class="svc-img" onerror="this.style.display='none'">
+      <div class="svc-body">
+        <div class="svc-icon">🩺</div>
+        <div class="svc-name" data-fr="Soins de Carie" data-ar="علاج التسوس">Soins de Carie</div>
+        <div class="svc-desc" data-fr="Détection précoce et traitement des caries avec des matériaux esthétiques de haute qualité pour préserver votre dent." data-ar="الكشف المبكر وعلاج التسوس بمواد جمالية عالية الجودة للحفاظ على سنك.">Détection précoce et traitement des caries avec des matériaux esthétiques de haute qualité pour préserver votre dent.</div>
+        <button class="svc-link" onclick="openRDVModal()" data-fr="Prendre RDV →" data-ar="احجز موعد →">Prendre RDV →</button>
+      </div>
+    </div>
+    <!-- Detartrage -->
+    <div class="svc-card reveal d3">
+      <img src="detartrage.jpg" alt="Détartrage" class="svc-img" onerror="this.style.display='none'">
+      <div class="svc-body">
+        <div class="svc-icon">🧹</div>
+        <div class="svc-name" data-fr="Détartrage & Prophylaxie" data-ar="تنظيف الأسنان والوقاية">Détartrage & Prophylaxie</div>
+        <div class="svc-desc" data-fr="Nettoyage professionnel pour prévenir les maladies parodontales. Un bilan complet recommandé deux fois par an." data-ar="تنظيف احترافي للوقاية من أمراض اللثة. فحص شامل موصى به مرتين سنوياً.">Nettoyage professionnel pour prévenir les maladies parodontales. Un bilan complet recommandé deux fois par an.</div>
+        <button class="svc-link" onclick="openRDVModal()" data-fr="Prendre RDV →" data-ar="احجز موعد →">Prendre RDV →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about" class="section">
+  <div class="about-grid">
+    <div class="about-visual reveal">
+      <div class="about-card">
+        <img src="doctor_profile.jpg" alt="Dr. Sarah Benali" class="about-doc-img" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="about-avatar" style="display:none">👩‍⚕️</span>
+        <div class="about-doc-name">Dr. Sarah Benali</div>
+        <div class="about-doc-title" data-fr="Chirurgienne Dentiste Certifiée" data-ar="جراحة أسنان معتمدة">Chirurgienne Dentiste Certifiée</div>
+        <div class="about-stats">
+          <div class="a-stat"><div class="a-stat-num">12+</div><div class="a-stat-lbl" data-fr="Années d'expérience" data-ar="سنوات خبرة">Années d'expérience</div></div>
+          <div class="a-stat"><div class="a-stat-num">500+</div><div class="a-stat-lbl" data-fr="Patients traités" data-ar="مريض تم علاجهم">Patients traités</div></div>
+          <div class="a-stat"><div class="a-stat-num">98%</div><div class="a-stat-lbl" data-fr="Taux de satisfaction" data-ar="نسبة الرضا">Taux de satisfaction</div></div>
+          <div class="a-stat"><div class="a-stat-num">6</div><div class="a-stat-lbl" data-fr="Spécialisations" data-ar="تخصصات">Spécialisations</div></div>
+        </div>
+      </div>
+      <div class="cert-badge">
+        <span style="font-size:1.6rem">🏆</span>
+        <div>
+          <div style="font-size:.82rem;font-weight:700;color:var(--gray-900)" data-fr="Certifiée CNOP" data-ar="معتمدة CNOP">Certifiée CNOP</div>
+          <div style="font-size:.7rem;color:var(--gray-500)" data-fr="Ordre des Médecins Dentistes du Maroc" data-ar="هيئة أطباء الأسنان بالمغرب">Ordre des Médecins Dentistes du Maroc</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-content reveal d2">
+      <span class="eyebrow" data-fr="À Propos" data-ar="من نحن">À Propos</span>
+      <h2 style="margin-top:10px" data-fr="Une expertise au service de<br/><em>votre santé bucco-dentaire</em>" data-ar="خبرة في خدمة<br/><em>صحة فمك وأسنانك</em>">Une expertise au service de<br/><em>votre santé bucco-dentaire</em></h2>
+      <p data-fr="Docteure Sarah Benali est diplômée de la Faculté de Médecine Dentaire de Casablanca. Avec plus de 12 ans de pratique, elle a développé une expertise reconnue dans les soins restaurateurs, l'implantologie et l'esthétique dentaire." data-ar="الدكتورة سارة بنعلي خريجة كلية طب الأسنان بالدار البيضاء. بخبرة تتجاوز 12 عاماً، طوّرت خبرة معترفاً بها في الترميم والزرع وتجميل الأسنان.">Docteure Sarah Benali est diplômée de la Faculté de Médecine Dentaire de Casablanca. Avec plus de 12 ans de pratique, elle a développé une expertise reconnue dans les soins restaurateurs, l'implantologie et l'esthétique dentaire.</p>
+      <p data-fr="Son approche : écoute, bienveillance et précision. Chaque patient bénéficie d'un diagnostic personnalisé et d'un plan de traitement transparent, expliqué étape par étape." data-ar="نهجها: الاستماع والعطف والدقة. كل مريض يحظى بتشخيص مخصص وخطة علاجية شفافة تُشرح خطوة بخطوة.">Son approche : écoute, bienveillance et précision. Chaque patient bénéficie d'un diagnostic personnalisé et d'un plan de traitement transparent, expliqué étape par étape.</p>
+      <ul class="check-list">
+        <li><div class="chk">✓</div> <span data-fr="Formation continue aux techniques innovantes en Europe" data-ar="تكوين مستمر في التقنيات المبتكرة بأوروبا">Formation continue aux techniques innovantes en Europe</span></li>
+        <li><div class="chk">✓</div> <span data-fr="Cabinet équipé de technologies numériques de pointe" data-ar="عيادة مجهزة بأحدث التقنيات الرقمية">Cabinet équipé de technologies numériques de pointe</span></li>
+        <li><div class="chk">✓</div> <span data-fr="Protocole de stérilisation certifié ISO" data-ar="بروتوكول تعقيم معتمد ISO">Protocole de stérilisation certifié ISO</span></li>
+        <li><div class="chk">✓</div> <span data-fr="Prise en charge conventionnée et devis transparent" data-ar="تغطية متفق عليها وتسعير شفاف">Prise en charge conventionnée et devis transparent</span></li>
+      </ul>
+      <button class="btn-primary" style="margin-top:32px" onclick="openRDVModal()" data-fr="📅 Consulter le Docteur" data-ar="📅 استشر الطبيبة">📅 Consulter le Docteur</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RENDEZ-VOUS (inline section, scroll target) ═══ -->
+<section id="rdv" class="section rdv-section">
+  <div class="rdv-grid">
+    <div class="reveal">
+      <span class="eyebrow" data-fr="Rendez-vous" data-ar="المواعيد">Rendez-vous</span>
+      <div class="rdv-info">
+        <h2 data-fr="Réservez votre<br/><em>consultation</em><br/>en ligne" data-ar="احجز<br/><em>استشارتك</em><br/>عبر الإنترنت">Réservez votre<br/><em>consultation</em><br/>en ligne</h2>
+        <p data-fr="Remplissez le formulaire et vous recevrez une confirmation via WhatsApp dans les plus brefs délais." data-ar="أكمل النموذج وستتلقى تأكيداً عبر واتساب في أقرب وقت.">Remplissez le formulaire et vous recevrez une confirmation via WhatsApp dans les plus brefs délais.</p>
+      </div>
+      <div class="rdv-hl">
+        <div class="rdv-hl-item"><div class="hl-dot"></div><span class="hl-text" data-fr="Confirmation rapide par WhatsApp" data-ar="تأكيد سريع عبر واتساب">Confirmation rapide par WhatsApp</span></div>
+        <div class="rdv-hl-item"><div class="hl-dot"></div><span class="hl-text" data-fr="Premier examen offert pour les nouveaux patients" data-ar="الفحص الأول مجاني للمرضى الجدد">Premier examen offert pour les nouveaux patients</span></div>
+        <div class="rdv-hl-item"><div class="hl-dot"></div><span class="hl-text" data-fr="Disponible du Lundi au Samedi, 9h – 19h" data-ar="متاح من الإثنين إلى السبت، 9ص – 7م">Disponible du Lundi au Samedi, 9h – 19h</span></div>
+        <div class="rdv-hl-item"><div class="hl-dot"></div><span class="hl-text" data-fr="Urgences dentaires traitées en priorité" data-ar="حالات طوارئ الأسنان بالأولوية">Urgences dentaires traitées en priorité</span></div>
+      </div>
+    </div>
+    <div class="form-box reveal d2" id="inlineFormBox">
+      <h3 class="form-box-title" data-fr="📋 Formulaire de Rendez-vous" data-ar="📋 نموذج حجز الموعد">📋 Formulaire de Rendez-vous</h3>
+      <p class="form-box-sub" data-fr="Tous les champs sont obligatoires" data-ar="جميع الحقول إلزامية">Tous les champs sont obligatoires</p>
+      <div class="form-row">
+        <div class="fg">
+          <label data-fr="👤 Nom complet" data-ar="👤 الاسم الكامل">👤 Nom complet</label>
+          <input id="fName" type="text" placeholder="ex: Mohammed Alaoui" />
+        </div>
+        <div class="fg">
+          <label data-fr="📞 Téléphone" data-ar="📞 الهاتف">📞 Téléphone</label>
+          <input id="fPhone" type="tel" placeholder="ex: 06 12 34 56 78" />
+        </div>
+      </div>
+      <div class="fg">
+        <label data-fr="🦷 Type de soin" data-ar="🦷 نوع العلاج">🦷 Type de soin</label>
+        <div class="sel-wrap">
+          <select id="fReason">
+            <option value="" data-fr="Sélectionner le type de soin" data-ar="اختر نوع العلاج">Sélectionner le type de soin</option>
+            <option data-fr="🦷 Implantologie" data-ar="🦷 زراعة الأسنان">🦷 Implantologie</option>
+            <option data-fr="😁 Orthodontie (bagues / aligneurs)" data-ar="😁 تقويم الأسنان">😁 Orthodontie (bagues / aligneurs)</option>
+            <option data-fr="✨ Blanchiment dentaire" data-ar="✨ تبييض الأسنان">✨ Blanchiment dentaire</option>
+            <option data-fr="🔬 Extraction dentaire" data-ar="🔬 قلع الأسنان">🔬 Extraction dentaire</option>
+            <option data-fr="🩺 Soins de carie" data-ar="🩺 علاج التسوس">🩺 Soins de carie</option>
+            <option data-fr="🧹 Détartrage & Prophylaxie" data-ar="🧹 تنظيف الأسنان">🧹 Détartrage & Prophylaxie</option>
+            <option data-fr="🚨 Urgence dentaire" data-ar="🚨 طوارئ أسنان">🚨 Urgence dentaire</option>
+            <option data-fr="📋 Consultation générale / Bilan" data-ar="📋 استشارة عامة">📋 Consultation générale / Bilan</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="fg">
+          <label data-fr="📅 Date souhaitée" data-ar="📅 التاريخ المطلوب">📅 Date souhaitée</label>
+          <input id="fDate" type="date" />
+        </div>
+        <div class="fg">
+          <label data-fr="🕐 Heure préférée" data-ar="🕐 الوقت المفضل">🕐 Heure préférée</label>
+          <div class="sel-wrap">
+            <select id="fTime">
+              <option value="" data-fr="Choisir une heure" data-ar="اختر الوقت">Choisir une heure</option>
+              <option>09h00 – 10h00</option>
+              <option>10h00 – 11h00</option>
+              <option>11h00 – 12h00</option>
+              <option>14h00 – 15h00</option>
+              <option>15h00 – 16h00</option>
+              <option>16h00 – 17h00</option>
+              <option>17h00 – 18h00</option>
+              <option>18h00 – 19h00</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="fg">
+        <label data-fr="💬 Message (optionnel)" data-ar="💬 رسالة (اختياري)">💬 Message (optionnel)</label>
+        <input id="fMsg" type="text" placeholder="Décrivez brièvement votre problème..." />
+      </div>
+      <button class="submit-btn" onclick="sendRDV('inline')">
+        <span>💬</span> <span data-fr="Envoyer via WhatsApp" data-ar="إرسال عبر واتساب">Envoyer via WhatsApp</span>
+      </button>
+      <p class="wa-note" data-fr="🔒 Vos données sont transmises directement et en toute sécurité" data-ar="🔒 بياناتك ترسل مباشرة وبشكل آمن">🔒 Vos données sont transmises directement et en toute sécurité</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact" class="section section-alt">
+  <div class="section-header reveal">
+    <span class="eyebrow" data-fr="Contact &amp; Localisation" data-ar="اتصل بنا والموقع">Contact &amp; Localisation</span>
+    <h2 class="sec-title" data-fr="Nous <em>Trouver</em>" data-ar="كيفية <em>الوصول إلينا</em>">Nous <em>Trouver</em></h2>
+    <p class="sec-sub" data-fr="Notre cabinet est facilement accessible. N'hésitez pas à nous contacter pour toute question." data-ar="عيادتنا سهلة الوصول. لا تتردد في الاتصال بنا لأي استفسار.">Notre cabinet est facilement accessible. N'hésitez pas à nous contacter pour toute question.</p>
+    <div class="divider-line"></div>
+  </div>
+  <div class="contact-cards">
+    <div class="ccard reveal">
+      <div class="ccard-ico">📍</div>
+      <h3 data-fr="Adresse" data-ar="العنوان">Adresse</h3>
+      <p data-fr="12, Rue des Fleurs, Quartier Maarif<br/><strong>Casablanca 20100</strong>, Maroc" data-ar="12، شارع الأزهار، حي معاريف<br/><strong>الدار البيضاء 20100</strong>، المغرب">12, Rue des Fleurs, Quartier Maarif<br/><strong>Casablanca 20100</strong>, Maroc</p>
+    </div>
+    <div class="ccard reveal d1">
+      <div class="ccard-ico">📞</div>
+      <h3 data-fr="Téléphone" data-ar="الهاتف">Téléphone</h3>
+      <p><a href="tel:+212522123456">+212 5 22 12 34 56</a></p>
+      <p style="margin-top:8px"><a href="https://wa.me/212612345678" target="_blank" style="color:#25D366">💬 WhatsApp : +212 6 12 34 56 78</a></p>
+    </div>
+    <div class="ccard reveal d2">
+      <div class="ccard-ico">🕐</div>
+      <h3 data-fr="Horaires d'Ouverture" data-ar="ساعات العمل">Horaires d'Ouverture</h3>
+      <div class="hours-tbl">
+        <div class="hr-row"><span class="hr-day" data-fr="Lun – Ven" data-ar="الإث – الجمعة">Lun – Ven</span><span class="hr-time">9h – 19h</span></div>
+        <div class="hr-row"><span class="hr-day" data-fr="Samedi" data-ar="السبت">Samedi</span><span class="hr-time">9h – 14h</span></div>
+        <div class="hr-row" style="grid-column:1/-1"><span class="hr-day" data-fr="Dimanche" data-ar="الأحد">Dimanche</span><span class="hr-time" style="color:#EF4444" data-fr="Fermé" data-ar="مغلق">Fermé</span></div>
+      </div>
+    </div>
+    <div class="ccard reveal d3">
+      <div class="ccard-ico">🚗</div>
+      <h3 data-fr="Accès &amp; Parking" data-ar="الوصول والمواقف">Accès &amp; Parking</h3>
+      <p data-fr="Tram ligne T1 – Arrêt <strong>Maarif Centre</strong>. Parking gratuit disponible devant le cabinet (30 places)." data-ar="ترام الخط T1 – محطة <strong>مركز معاريف</strong>. موقف مجاني أمام العيادة (30 مكاناً).">Tram ligne T1 – Arrêt <strong>Maarif Centre</strong>. Parking gratuit disponible devant le cabinet (30 places).</p>
+    </div>
+  </div>
+  <div class="map-box reveal">
+    <div class="map-inner">
+      <span class="map-pin">📍</span>
+      <div class="map-name" data-fr="Cabinet Dentaire Dr. Sarah Benali" data-ar="عيادة د. سارة بنعلي لطب الأسنان">Cabinet Dentaire Dr. Sarah Benali</div>
+      <div class="map-addr" data-fr="12, Rue des Fleurs, Maarif — Casablanca" data-ar="12، شارع الأزهار، معاريف — الدار البيضاء">12, Rue des Fleurs, Maarif — Casablanca</div>
+      <a class="map-link" href="https://maps.google.com/?q=Casablanca+Maarif" target="_blank" data-fr="🗺 Ouvrir dans Google Maps" data-ar="🗺 فتح في خرائط جوجل">🗺 Ouvrir dans Google Maps</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>🦷 Dr. Sarah Benali</h3>
+      <p data-fr="Cabinet dentaire moderne offrant des soins de qualité supérieure dans un environnement bienveillant et rassurant à Casablanca, Maroc." data-ar="عيادة أسنان حديثة تقدم رعاية عالية الجودة في بيئة دافئة ومريحة بالدار البيضاء، المغرب.">Cabinet dentaire moderne offrant des soins de qualité supérieure dans un environnement bienveillant et rassurant à Casablanca, Maroc.</p>
+      <a class="footer-wa" href="https://wa.me/212612345678?text=Bonjour%20Docteur%2C%20je%20souhaite%20prendre%20un%20rendez-vous." target="_blank" data-fr="💬 Nous contacter sur WhatsApp" data-ar="💬 تواصل معنا عبر واتساب">💬 Nous contacter sur WhatsApp</a>
+    </div>
+    <div class="footer-col">
+      <h4 data-fr="Navigation" data-ar="التنقل">Navigation</h4>
+      <ul>
+        <li><a onclick="goto('accueil')" data-fr="Accueil" data-ar="الرئيسية">Accueil</a></li>
+        <li><a onclick="goto('services')" data-fr="Nos Services" data-ar="خدماتنا">Nos Services</a></li>
+        <li><a onclick="goto('about')" data-fr="À Propos" data-ar="من نحن">À Propos</a></li>
+        <li><a onclick="goto('rdv')" data-fr="Rendez-vous" data-ar="المواعيد">Rendez-vous</a></li>
+        <li><a onclick="goto('contact')" data-fr="Contact" data-ar="اتصل بنا">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 data-fr="Nos Soins" data-ar="علاجاتنا">Nos Soins</h4>
+      <ul>
+        <li><a onclick="goto('services')" data-fr="Implantologie" data-ar="زراعة الأسنان">Implantologie</a></li>
+        <li><a onclick="goto('services')" data-fr="Orthodontie" data-ar="تقويم الأسنان">Orthodontie</a></li>
+        <li><a onclick="goto('services')" data-fr="Blanchiment" data-ar="تبييض الأسنان">Blanchiment</a></li>
+        <li><a onclick="goto('services')" data-fr="Extraction" data-ar="قلع الأسنان">Extraction</a></li>
+        <li><a onclick="goto('services')" data-fr="Soins de Carie" data-ar="علاج التسوس">Soins de Carie</a></li>
+        <li><a onclick="goto('services')" data-fr="Détartrage" data-ar="تنظيف الأسنان">Détartrage</a></li>
+      </ul>
+    </div>
+  </div>
+  <hr class="footer-hr" />
+  <div class="footer-bottom">
+    <span class="footer-copy" data-fr="© 2025 Cabinet Dentaire Dr. Sarah Benali — Casablanca, Maroc" data-ar="© 2025 عيادة د. سارة بنعلي لطب الأسنان — الدار البيضاء، المغرب">© 2025 Cabinet Dentaire Dr. Sarah Benali — Casablanca, Maroc</span>
+    <span class="footer-pill" data-fr="🦷 Votre Sourire, Notre Priorité" data-ar="🦷 ابتسامتك، أولويتنا">🦷 Votre Sourire, Notre Priorité</span>
+  </div>
+</footer>
+
+<!-- ═══ WHATSAPP FLOAT ═══ -->
+<a class="wa-float" href="https://wa.me/212612345678?text=Bonjour%20Docteur%2C%20je%20souhaite%20prendre%20un%20rendez-vous." target="_blank" title="WhatsApp">
+  <span class="wa-float-tip" data-fr="Discuter sur WhatsApp" data-ar="تواصل عبر واتساب">Discuter sur WhatsApp</span>
+  💬
+</a>
+
+<!-- SCROLL TOP -->
+<button id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- ═══ MODAL RDV ═══ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBg(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeRDVModal()" title="Fermer">✕</button>
+    <h3 class="form-box-title" data-fr="📋 Réserver un Rendez-vous" data-ar="📋 حجز موعد">📋 Réserver un Rendez-vous</h3>
+    <p class="form-box-sub" data-fr="Remplissez le formulaire — confirmation via WhatsApp" data-ar="أكمل النموذج — التأكيد عبر واتساب">Remplissez le formulaire — confirmation via WhatsApp</p>
+
+    <div class="form-row">
+      <div class="fg">
+        <label data-fr="👤 Nom complet *" data-ar="👤 الاسم الكامل *">👤 Nom complet *</label>
+        <input id="mName" type="text" placeholder="Mohammed Alaoui" />
+      </div>
+      <div class="fg">
+        <label data-fr="📞 Téléphone *" data-ar="📞 الهاتف *">📞 Téléphone *</label>
+        <input id="mPhone" type="tel" placeholder="06 12 34 56 78" />
+      </div>
+    </div>
+    <div class="fg">
+      <label data-fr="🦷 Type de soin *" data-ar="🦷 نوع العلاج *">🦷 Type de soin *</label>
+      <div class="sel-wrap">
+        <select id="mReason">
+          <option value="" data-fr="Sélectionner le type de soin" data-ar="اختر نوع العلاج">Sélectionner le type de soin</option>
+          <option data-fr="🦷 Implantologie" data-ar="🦷 زراعة الأسنان">🦷 Implantologie</option>
+          <option data-fr="😁 Orthodontie (bagues / aligneurs)" data-ar="😁 تقويم الأسنان">😁 Orthodontie (bagues / aligneurs)</option>
+          <option data-fr="✨ Blanchiment dentaire" data-ar="✨ تبييض الأسنان">✨ Blanchiment dentaire</option>
+          <option data-fr="🔬 Extraction dentaire" data-ar="🔬 قلع الأسنان">🔬 Extraction dentaire</option>
+          <option data-fr="🩺 Soins de carie" data-ar="🩺 علاج التسوس">🩺 Soins de carie</option>
+          <option data-fr="🧹 Détartrage & Prophylaxie" data-ar="🧹 تنظيف الأسنان">🧹 Détartrage & Prophylaxie</option>
+          <option data-fr="🚨 Urgence dentaire" data-ar="🚨 طوارئ أسنان">🚨 Urgence dentaire</option>
+          <option data-fr="📋 Consultation générale / Bilan" data-ar="📋 استشارة عامة">📋 Consultation générale / Bilan</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="fg">
+        <label data-fr="📅 Date souhaitée *" data-ar="📅 التاريخ المطلوب *">📅 Date souhaitée *</label>
+        <input id="mDate" type="date" />
+      </div>
+      <div class="fg">
+        <label data-fr="🕐 Heure préférée *" data-ar="🕐 الوقت المفضل *">🕐 Heure préférée *</label>
+        <div class="sel-wrap">
+          <select id="mTime">
+            <option value="" data-fr="Choisir une heure" data-ar="اختر الوقت">Choisir une heure</option>
+            <option>09h00 – 10h00</option>
+            <option>10h00 – 11h00</option>
+            <option>11h00 – 12h00</option>
+            <option>14h00 – 15h00</option>
+            <option>15h00 – 16h00</option>
+            <option>16h00 – 17h00</option>
+            <option>17h00 – 18h00</option>
+            <option>18h00 – 19h00</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="fg">
+      <label data-fr="💬 Message (optionnel)" data-ar="💬 رسالة (اختياري)">💬 Message (optionnel)</label>
+      <input id="mMsg" type="text" placeholder="Décrivez brièvement votre problème..." />
+    </div>
+    <button class="submit-btn" onclick="sendRDV('modal')">
+      <span>💬</span> <span data-fr="Envoyer via WhatsApp" data-ar="إرسال عبر واتساب">Envoyer via WhatsApp</span>
+    </button>
+    <p class="wa-note" data-fr="🔒 Données transmises en toute sécurité via WhatsApp" data-ar="🔒 البيانات ترسل بأمان عبر واتساب">🔒 Données transmises en toute sécurité via WhatsApp</p>
+  </div>
+</div>
+
+<!-- ═══ SUCCESS OVERLAY ═══ -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-box">
+    <span class="success-icon">✅</span>
+    <div class="success-title" data-fr="Demande Envoyée !" data-ar="تم الإرسال!">Demande Envoyée !</div>
+    <p class="success-msg" data-fr="Votre demande de rendez-vous a été transmise via WhatsApp. Le cabinet vous contactera sous peu pour confirmer votre créneau." data-ar="تم إرسال طلب موعدك عبر واتساب. ستتصل بك العيادة قريباً لتأكيد موعدك.">Votre demande de rendez-vous a été transmise via WhatsApp. Le cabinet vous contactera sous peu pour confirmer votre créneau.</p>
+    <button class="success-close" onclick="closeSuccess()" data-fr="Parfait, Merci !" data-ar="رائع، شكراً!">Parfait, Merci !</button>
+  </div>
+</div>
+
+<script>
+  /* ───── LANGUAGE SYSTEM ───── */
+  let currentLang = 'fr';
+
+  function setLang(lang) {
+    currentLang = lang;
+    const isAr = lang === 'ar';
+    document.documentElement.lang = lang;
+    document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+
+    // Toggle active buttons
+    document.getElementById('btnFr').classList.toggle('active', !isAr);
+    document.getElementById('btnAr').classList.toggle('active', isAr);
+
+    // Update all elements with data-fr / data-ar
+    document.querySelectorAll('[data-fr]').forEach(el => {
+      const text = el.getAttribute('data-' + lang);
+      if (!text) return;
+      // For elements that allow HTML (h1, h2, p, span with em inside)
+      const tag = el.tagName.toLowerCase();
+      if (['h1','h2','p','div','span','a','button','label'].includes(tag)) {
+        el.innerHTML = text;
+      } else {
+        el.textContent = text;
+      }
+    });
+
+    // Update select options
+    document.querySelectorAll('select option[data-fr]').forEach(opt => {
+      const text = opt.getAttribute('data-' + lang);
+      if (text) opt.textContent = text;
+    });
+
+    // Update input placeholders
+    if (isAr) {
+      setPlaceholders({
+        fName: 'مثال: محمد العلوي', fPhone: 'مثال: 06 12 34 56 78',
+        fMsg: 'صف مشكلتك باختصار...',
+        mName: 'محمد العلوي', mPhone: '06 12 34 56 78',
+        mMsg: 'صف مشكلتك باختصار...'
+      });
+    } else {
+      setPlaceholders({
+        fName: 'ex: Mohammed Alaoui', fPhone: 'ex: 06 12 34 56 78',
+        fMsg: 'Décrivez brièvement votre problème...',
+        mName: 'Mohammed Alaoui', mPhone: '06 12 34 56 78',
+        mMsg: 'Décrivez brièvement votre problème...'
+      });
+    }
+  }
+
+  function setPlaceholders(map) {
+    Object.entries(map).forEach(([id, ph]) => {
+      const el = document.getElementById(id);
+      if (el) el.placeholder = ph;
+    });
+  }
+
+  /* ───── NAVIGATION ───── */
+  function goto(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    closeMenu();
+  }
+
+  function toggleMenu() {
+    const m = document.getElementById('navLinks');
+    const isOpen = m.style.display === 'flex';
+    m.style.display = isOpen ? 'none' : 'flex';
+  }
+
+  function closeMenu() {
+    document.getElementById('navLinks').style.display = 'none';
+  }
+
+  /* ───── MODAL ───── */
+  function openRDVModal() {
+    document.getElementById('modalOverlay').classList.add('show');
+    document.body.style.overflow = 'hidden';
+    // Set min date
+    const d = new Date(); d.setDate(d.getDate() + 1);
+    const min = d.toISOString().split('T')[0];
+    document.getElementById('mDate').min = min;
+  }
+
+  function closeRDVModal() {
+    document.getElementById('modalOverlay').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  function closeModalOnBg(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeRDVModal();
+  }
+
+  /* ───── SUCCESS ───── */
+  function showSuccess() {
+    document.getElementById('successOverlay').classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSuccess() {
+    document.getElementById('successOverlay').classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  /* ───── SEND RDV ───── */
+  function sendRDV(source) {
+    const prefix = source === 'modal' ? 'm' : 'f';
+    const name   = document.getElementById(prefix + 'Name').value.trim();
+    const phone  = document.getElementById(prefix + 'Phone').value.trim();
+    const date   = document.getElementById(prefix + 'Date').value;
+    const time   = document.getElementById(prefix + 'Time').value;
+    const reason = document.getElementById(prefix + 'Reason').value;
+    const msg    = document.getElementById(prefix + 'Msg').value.trim();
+
+    const errMsg = currentLang === 'ar'
+      ? '⚠️ يرجى ملء جميع الحقول الإلزامية.'
+      : '⚠️ Veuillez remplir tous les champs obligatoires.';
+
+    if (!name || !phone || !date || !time || !reason) {
+      showToast(errMsg); return;
+    }
+
+    const fDate = new Date(date).toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    const text = currentLang === 'ar'
+      ? `🦷 *طلب موعد — عيادة د. بنعلي*\n\n👤 *الاسم:* ${name}\n📞 *الهاتف:* ${phone}\n📅 *التاريخ:* ${fDate}\n🕐 *الوقت:* ${time}\n🦷 *نوع العلاج:* ${reason}${msg ? `\n💬 *رسالة:* ${msg}` : ''}\n\n✅ أرجو تأكيد الموعد.`
+      : `🦷 *Demande de Rendez-vous — Cabinet Dr. Benali*\n\n👤 *Nom :* ${name}\n📞 *Tél :* ${phone}\n📅 *Date :* ${fDate}\n🕐 *Heure :* ${time}\n🦷 *Motif :* ${reason}${msg ? `\n💬 *Message :* ${msg}` : ''}\n\n✅ Merci de confirmer ce rendez-vous.`;
+
+    window.open(`https://wa.me/212612345678?text=${encodeURIComponent(text)}`, '_blank');
+
+    // Reset form
+    [prefix + 'Name', prefix + 'Phone', prefix + 'Date', prefix + 'Msg'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    [prefix + 'Time', prefix + 'Reason'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.selectedIndex = 0;
+    });
+
+    // Close modal if open, then show success
+    if (source === 'modal') closeRDVModal();
+    setTimeout(showSuccess, 300);
+  }
+
+  /* ───── TOAST ───── */
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.style.display = 'flex';
+    setTimeout(() => t.style.display = 'none', 4000);
+  }
+
+  /* ───── SCROLL EVENTS ───── */
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', scrollY > 20);
+    document.getElementById('scrollTopBtn').classList.toggle('show', scrollY > 500);
+    revealAll();
+  });
+
+  /* ───── REVEAL ───── */
+  function revealAll() {
+    document.querySelectorAll('.reveal').forEach(el => {
+      if (el.getBoundingClientRect().top < innerHeight - 60) el.classList.add('visible');
+    });
+  }
+
+  /* ───── INIT ───── */
+  window.addEventListener('DOMContentLoaded', () => {
+    // Set min date for inline form
+    const d = new Date(); d.setDate(d.getDate() + 1);
+    const minDate = d.toISOString().split('T')[0];
+    const fDate = document.getElementById('fDate');
+    if (fDate) fDate.min = minDate;
+    revealAll();
+  });
+
+  // Keyboard: Escape closes modal/success
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeRDVModal();
+      closeSuccess();
+    }
+  });
+</script>
+</body>
+</html>
